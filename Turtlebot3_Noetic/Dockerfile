@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-actionlib-tools \
     terminator \
     python3-pip \
+    git \
     && rm -rf /var/lib/apt/lists/*
 
 RUN rosdep init || true
@@ -37,6 +38,7 @@ RUN apt-get update && apt-get install -y \
     ros-noetic-map-server \
     ros-noetic-move-base \
     ros-noetic-navigation \
+    ros-noetic-teb-local-planner \
     && rm -rf /var/lib/apt/lists/*
 
 # Integrated GPU
@@ -48,6 +50,18 @@ RUN apt-get update && apt-get install -y \
     libx11-6 \
     libgl1-mesa-glx \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y \
+    python3-numpy \
+    python3-sklearn \
+    python3-scipy \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN pip install rdp
 
 # Environment Setup
 RUN echo "source /opt/ros/noetic/setup.bash" >> /root/.bashrc
@@ -62,4 +76,4 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 CMD ["bash"]
 
-WORKDIR /home/${USER}
+WORKDIR /root

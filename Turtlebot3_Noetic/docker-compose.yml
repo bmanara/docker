@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+  turtlebot:
+    image: turtlebot3-noetic
+    container_name: turtlebot
+    volumes:
+      - ~/catkin_ws:/root/catkin_ws
+    network_mode: host
+    environment:
+      - DISPLAY=${DISPLAY}
+      - LIBGL_ALWAYS_SOFTWARE=1
+    stdin_open: true
+    tty: true
+    command: bash
